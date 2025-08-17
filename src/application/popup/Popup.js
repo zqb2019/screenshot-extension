@@ -19,6 +19,7 @@ function Popup() {
       try {
         console.log('event', event)
         const config = JSON.parse(event.target.result);
+        console.log('config', config)
         setConfig(config);
         setStatus('config_loaded');
       } catch (error) {
@@ -40,6 +41,7 @@ function Popup() {
         config: config
       }, (response) => {
         if (response && response.success) {
+          console.log('image',response)
           setPreviewImage(response.image);
           setStatus('capture_success');
         } else {

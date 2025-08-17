@@ -15,6 +15,10 @@
   "background": {
     "service_worker": "background.js"
   },
+  "permissions": [
+    "downloads",
+    "tabs"
+  ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

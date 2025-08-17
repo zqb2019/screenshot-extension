@@ -1,3 +1,4 @@
+import html2canvas from 'html2canvas';
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'CAPTURE_AREA') {
     captureArea(request.config).then(result => {
@@ -13,7 +14,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 async function captureArea(config) {
   // 使用html2canvas或其他截图库
-  const element = document.querySelector(config.selector);
+  const element = document.querySelector(config.ContainersNode);
   
   if (!element) {
     throw new Error('找不到指定的DOM元素');
