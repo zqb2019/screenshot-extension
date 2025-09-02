@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas';
-import {matchConfig} from '../utils/index'
+import {matchConfig, findParentNode} from '../utils/index'
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'CAPTURE_AREA') {
     captureArea(request.config).then(result => {
@@ -17,6 +17,7 @@ async function captureArea(config) {
   // 使用html2canvas或其他截图库
   
   // const element = document.querySelector(config.ContainersNode);
+  const configResult = matchConfig(config)
   
   const element = document.querySelector(matchConfig(config).ContainersNode);
 
