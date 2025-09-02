@@ -1,8 +1,8 @@
 chrome.runtime.onMessage.addListener(request=>{
   const { type, data } = request
   if (type === 'changeDevice') {
-    console.log('changeDevice')
-    data.device === 'mobile' ? switchMobileView () : resetDesktopView()
+    console.log('changeDevice',data)
+    data.device === "mobile" ? switchMobileView () : resetDesktopView()
   }
 })
 function getDeviceParams(deviceType) {
@@ -30,6 +30,7 @@ function getDeviceParams(deviceType) {
 
 function switchMobileView(deviceType) {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      console.log('switchMobileView', tabs)
         if (tabs.length === 0) return;
         
         const tabId = tabs[0].id;
@@ -77,16 +78,15 @@ function switchMobileView(deviceType) {
 }
 function resetDesktopView() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      console.log('resetDesktopView', tabs)
         if (tabs.length === 0) return;
-        
         const tabId = tabs[0].id;
-        
+        chrome.debugger.detach({ tabId });
         chrome.debugger.attach({ tabId }, "1.3", function() {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError);
                 return;
             }
-            
             // 清除设备参数覆盖
             chrome.debugger.sendCommand(
                 { tabId },

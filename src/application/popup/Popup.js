@@ -4,17 +4,17 @@ import ReactDOM from 'react-dom';
 
 function Popup() {
   const [config, setConfig] = useState(null);
-  const [status, setStatus] = useState('桌面端');
+  const [status, setStatus] = useState('移动端');
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
 
   const changeDevice = () => {
     console.log('status', status)
-    if (status === '桌面端') {
-      setStatus('移动端')
+    if (status === '移动端') {
+      setStatus('桌面端')
       chrome.runtime.sendMessage({type: "changeDevice", data: {device: "mobile"}})
     }else {
-      setStatus('桌面端')
+      setStatus('移动端')
        chrome.runtime.sendMessage({type: "changeDevice", data: {device: "desktop"}})
     }
 
