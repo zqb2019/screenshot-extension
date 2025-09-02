@@ -140,7 +140,7 @@ async function applyMobileView(deviceType, currentTabId) {
 
     try {
         // 附加调试器
-        await chrome.debugger.attach({ tabId}, "1.3");
+        await chrome.debugger.attach({ tabId: currentTabId}, "1.3");
         
         // 1. 首先注入视口meta标签（关键！解决白屏和滚动问题）
         await injectViewportMeta(currentTabId, device.viewportMeta);
@@ -193,11 +193,8 @@ async function applyMobileView(deviceType, currentTabId) {
         // 6. 强制重布局（解决白屏问题）
         await forceRelayout(currentTabId);
 
-        showStatus(`已切换到 ${device.name} 视图`, 'success');
-
     } catch (error) {
         console.error('应用移动视图失败:', error);
-        showStatus(`设置失败: ${error.message}`, 'error');
     }
 }
 
